@@ -16,13 +16,13 @@
 
 ### 🌐 Live Demo | مشاهده آنلاین
 
-<a href="https://github.com/3INA3/programming-languages-guide">
-  <img src="https://img.shields.io/badge/Repository-programming--languages--guide-3dd68c?style=for-the-badge&logo=github&logoColor=white" alt="Repository"/>
+<a href="https://3ina3.github.io/programming-languages-guide/">
+  <img src="https://img.shields.io/badge/Live_Demo-3ina3.github.io-3dd68c?style=for-the-badge&logo=github&logoColor=white" alt="Live Demo"/>
 </a>
 
 <br/><br/>
 
-**👉 [github.com/3INA3/programming-languages-guide](https://github.com/3INA3/programming-languages-guide)**
+**👉 [https://3ina3.github.io/programming-languages-guide/](https://3ina3.github.io/programming-languages-guide/)**
 
 </div>
 
