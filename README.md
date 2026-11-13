@@ -8,11 +8,6 @@ Use cases · Code samples · Learning paths · Search & filters
 
 ---
 
-### 🌐 Live Demo | مشاهده آنلاین
-**👉 https://programming-languages-guide.vercel.app**
-
----
-
 ## About the Project | درباره پروژه
 
 **English**  
@@ -37,9 +32,9 @@ Each entry includes a short description, common use cases, a practical note, and
 
 ---
 
-## Official Source | منبع رسمی
+## Repository | مخزن
 
-**GitHub:** [github.com/3INA3](https://github.com/3INA3)
+**GitHub:** [github.com/3INA3/programming-languages-guide](https://github.com/3INA3/programming-languages-guide)
 
 ---
 
