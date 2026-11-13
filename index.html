@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f2a1e">
+<meta name="description" content="راهنمای فارسی زبان‌های برنامه‌نویسی؛ کاربردها، مثال کد و مسیر یادگیری · Sina Shojaeian (3INA3)">
+<title>راهنمای زبان‌های برنامه‌نویسی · 3INA3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b1f17;
+  --panel: #143528;
+  --line: #2a5a42;
+  --text: #eef8f1;
+  --muted: #9ec4b0;
+  --green: #3dd68c;
+  --lime: #a8e063;
+  --mint: #7dffb3;
+  --teal: #2ec4b6;
+  --gold: #f0c75e;
+  --shadow: 0 20px 50px rgba(0,0,0,.35);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Vazirmatn, sans-serif;
+  line-height: 1.9;
+  overflow-x: hidden;
+}
+
+.bg-blobs {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: .35;
+  animation: floatBlob 18s ease-in-out infinite;
+}
+.blob1 { width: 420px; height: 420px; background: #1a6b45; top: -80px; right: -60px; }
+.blob2 { width: 360px; height: 360px; background: #2a8f5f; bottom: 10%; left: -100px; animation-delay: -6s; }
+.blob3 { width: 300px; height: 300px; background: #3dd68c44; top: 40%; right: 20%; animation-delay: -12s; }
+
+@keyframes floatBlob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.08); }
+  66% { transform: translate(-30px, 20px) scale(.95); }
+}
+
+.leaves {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.leaf {
+  position: absolute;
+  font-size: 18px;
+  opacity: .18;
+  animation: fall linear infinite;
+  filter: blur(.3px);
+}
+@keyframes fall {
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+  10% { opacity: .22; }
+  90% { opacity: .18; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+a { color: inherit; text-decoration: none; }
+.container { width: min(1180px, calc(100% - 36px)); margin: auto; position: relative; z-index: 1; }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgba(11, 31, 23, .82);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid #3dd68c22;
+}
+.nav {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 900;
+}
+.brandmark {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--green), var(--lime));
+  display: grid;
+  place-items: center;
+  color: #0b1f17;
+  font-weight: 900;
+  font-size: 18px;
+  box-shadow: 0 0 24px #3dd68c55;
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 18px #3dd68c44; }
+  50% { box-shadow: 0 0 32px #3dd68c88; }
+}
+.nav small { color: var(--muted); direction: ltr; font-size: 12px; letter-spacing: 1px; }
+
+.hero { padding: 70px 0 40px; }
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border: 1px solid #3dd68c55;
+  border-radius: 40px;
+  color: var(--mint);
+  font-size: 13px;
+  background: #3dd68c12;
+  animation: fadeUp .8s ease both;
+}
+h1 {
+  font-size: clamp(34px, 5.2vw, 56px);
+  line-height: 1.3;
+  margin: 18px 0 14px;
+  font-weight: 900;
+  max-width: 880px;
+  animation: fadeUp .9s .1s ease both;
+}
+.gradient {
+  background: linear-gradient(90deg, var(--lime), var(--green), var(--teal));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero p {
+  max-width: 740px;
+  color: var(--muted);
+  font-size: 16.5px;
+  margin: 0;
+  animation: fadeUp 1s .2s ease both;
+}
+.hero-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+  animation: fadeUp 1.1s .25s ease both;
+}
+.pill {
+  border: 1px solid #3dd68c33;
+  background: #ffffff08;
+  color: #c8e6d4;
+  border-radius: 30px;
+  padding: 5px 14px;
+  font-size: 12px;
+  transition: .25s;
+}
+.pill:hover { background: #3dd68c22; border-color: var(--green); transform: translateY(-2px); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 28px 0 20px;
+  animation: fadeUp 1.2s .3s ease both;
+}
+.stat {
+  background: linear-gradient(160deg, #1a4030, #123026);
+  border: 1px solid #2a5a42;
+  border-radius: 18px;
+  padding: 18px 20px;
+  position: relative;
+  overflow: hidden;
+  transition: .3s;
+}
+.stat::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, #3dd68c15, transparent);
+  transform: translateX(-100%);
+  transition: .6s;
+}
+.stat:hover::before { transform: translateX(100%); }
+.stat:hover { border-color: #3dd68c66; transform: translateY(-4px); }
+.stat strong {
+  display: block;
+  font-size: 28px;
+  color: var(--lime);
+  direction: ltr;
+  text-align: right;
+}
+.stat span { color: var(--muted); font-size: 12.5px; }
+
+.toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 30px 0 18px;
+}
+.search { flex: 1; min-width: 240px; position: relative; }
+.search input {
+  width: 100%;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 48px 14px 16px;
+  color: var(--text);
+  font: inherit;
+  outline: none;
+  transition: .25s;
+}
+.search input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px #3dd68c22;
+}
+.search::before {
+  content: "⌕";
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--green);
+  font-size: 22px;
+}
+.filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.filter {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--muted);
+  padding: 9px 14px;
+  border-radius: 12px;
+  font: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: .25s;
+}
+.filter.active, .filter:hover {
+  color: #0b1f17;
+  background: linear-gradient(135deg, var(--green), var(--lime));
+  border-color: transparent;
+  font-weight: 700;
+  box-shadow: 0 6px 20px #3dd68c44;
+}
+
+.section-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 40px 0 16px;
+}
+.section-head h2 { margin: 0; font-size: 24px; }
+.section-head p { margin: 0; color: var(--muted); font-size: 13px; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.card {
+  background: linear-gradient(160deg, #163a2a, #102a1f);
+  border: 1px solid #2a5a42;
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: var(--shadow);
+  transition: .35s cubic-bezier(.2,.8,.2,1);
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(24px);
+  animation: cardIn .6s ease forwards;
+}
+.card::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 30%, #3dd68c18, transparent 45%);
+  opacity: 0;
+  transition: .4s;
+  pointer-events: none;
+}
+.card:hover {
+  transform: translateY(-8px) scale(1.015);
+  border-color: #3dd68c88;
+  box-shadow: 0 25px 50px #0006, 0 0 30px #3dd68c22;
+}
+.card:hover::after { opacity: 1; }
+
+@keyframes cardIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.lang-title { display: flex; align-items: center; gap: 12px; }
+.emoji {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  background: #ffffff0c;
+  border: 1px solid #ffffff15;
+  border-radius: 16px;
+  font-size: 24px;
+  animation: floatEmoji 4s ease-in-out infinite;
+  transition: .3s;
+}
+.card:hover .emoji {
+  transform: scale(1.15) rotate(8deg);
+  background: #3dd68c22;
+  border-color: #3dd68c66;
+  animation-play-state: paused;
+}
+@keyframes floatEmoji {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.lang-title h3 { margin: 0; font-size: 18px; }
+.lang-title small {
+  color: var(--muted);
+  font-family: "Fira Code", monospace;
+  direction: ltr;
+  display: block;
+  text-align: right;
+  font-size: 11px;
+}
+.tag {
+  font-size: 11px;
+  color: #0b1f17;
+  background: linear-gradient(135deg, var(--lime), var(--green));
+  padding: 4px 11px;
+  border-radius: 30px;
+  white-space: nowrap;
+  font-weight: 700;
+}
+.desc {
+  color: #c5e0d2;
+  font-size: 13.5px;
+  margin: 15px 0 12px;
+}
+.subhead {
+  font-size: 11.5px;
+  color: var(--mint);
+  font-weight: 800;
+  margin: 12px 0 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.subhead::before {
+  content: "✦";
+  font-size: 10px;
+  color: var(--gold);
+}
+.uses { display: flex; flex-wrap: wrap; gap: 6px; }
+.uses span {
+  font-size: 11.5px;
+  color: #b8dcc8;
+  background: #ffffff0a;
+  border: 1px solid #ffffff12;
+  border-radius: 8px;
+  padding: 3px 9px;
+  transition: .2s;
+}
+.card:hover .uses span {
+  background: #3dd68c18;
+  border-color: #3dd68c44;
+}
+.note {
+  border-right: 3px solid var(--gold);
+  background: #f0c75e12;
+  color: #e8d9a8;
+  padding: 10px 13px;
+  margin-top: 14px;
+  font-size: 12.5px;
+  border-radius: 10px;
+}
+pre {
+  direction: ltr;
+  text-align: left;
+  overflow: auto;
+  background: #071510;
+  border: 1px solid #2a5a42;
+  border-radius: 12px;
+  padding: 14px;
+  margin: 10px 0 0;
+  color: #9ef0c0;
+  font: 12.5px/1.7 "Fira Code", monospace;
+  white-space: pre;
+  transition: .25s;
+}
+.card:hover pre {
+  border-color: #3dd68c55;
+  box-shadow: inset 0 0 20px #3dd68c11;
+}
+
+.empty {
+  display: none;
+  text-align: center;
+  color: var(--muted);
+  padding: 50px;
+  font-size: 16px;
+}
+
+.callout {
+  margin: 42px 0;
+  padding: 26px;
+  border: 1px solid #3dd68c44;
+  background: linear-gradient(130deg, #3dd68c15, #2ec4b612);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.callout::before {
+  content: "🌿";
+  position: absolute;
+  font-size: 80px;
+  opacity: .08;
+  left: 20px;
+  top: -10px;
+  animation: floatEmoji 6s ease-in-out infinite;
+}
+.callout h2 { margin: 0 0 8px; font-size: 21px; }
+.callout p { color: #c5e0d2; margin: 0; font-size: 14px; }
+
+.path-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 18px 0 50px;
+}
+.path {
+  padding: 18px;
+  border-radius: 16px;
+  background: linear-gradient(160deg, #163a2a, #123026);
+  border: 1px solid #2a5a42;
+  transition: .3s;
+  position: relative;
+  overflow: hidden;
+}
+.path:hover {
+  transform: translateY(-5px);
+  border-color: #3dd68c77;
+  box-shadow: 0 15px 35px #0004;
+}
+.path strong {
+  display: block;
+  color: var(--lime);
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+.path p { margin: 0; color: var(--muted); font-size: 12.5px; }
+
+.footer {
+  border-top: 1px solid #2a5a42;
+  padding: 28px 0 40px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 780px) {
+  .grid { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .path-grid { grid-template-columns: 1fr; }
+  .hero { padding-top: 40px; }
+  .nav small { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  .blob, .leaf { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-blobs">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+</div>
+<div class="leaves" id="leaves"></div>
+
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="https://github.com/3INA3">
+      <span class="brandmark">S</span>
+      <span>3INA3 <span style="color:var(--muted);font-weight:500">/ زبان‌های برنامه‌نویسی</span></span>
+    </a>
+    <small>PROGRAMMING LANGUAGES · 3INA3</small>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- COPYRIGHT TOP -->
+  <div style="margin:28px 0 8px;padding:16px 18px;border:1px solid #3dd68c33;border-radius:14px;background:#3dd68c0a;font-size:12.5px;line-height:1.85;color:var(--muted);">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;margin-bottom:8px;">
+      <span style="color:var(--lime);font-weight:700;">© ۱۴۰۵ / ۲۰۲۶ · سینا شجاعیان (3INA3)</span>
+      <span style="direction:ltr;"><a href="https://github.com/3INA3" style="color:var(--mint);">github.com/3INA3</a></span>
+    </div>
+    <p style="margin:0 0 6px;">تمام حقوق این راهنما برای <b style="color:var(--text);">Sina Shojaeian (3INA3)</b> محفوظ است. دانلود، استفاده، کپی، بازنشر، ویرایش و توزیع <b>فقط</b> از طریق ریپازیتوری رسمی گیت‌هاب مجاز است.</p>
+    <p style="margin:0;direction:ltr;text-align:left;font-size:11.5px;"><b>This material is proprietary. Unauthorized modification, redistribution or commercial use is strictly prohibited.</b> · Official source only · © 2026 Sina Shojaeian (3INA3)</p>
+  </div>
+
+  <section class="hero">
+    <span class="eyebrow">✦ راهنمای زبان‌های برنامه‌نویسی</span>
+    <h1>دنیای زبان‌های <span class="gradient">برنامه‌نویسی</span></h1>
+    <p>
+      ۵۲ زبان مهم و شناخته‌شده را کنار هم بررسی می‌کنیم؛ از زبان‌هایی که برای شروع یادگیری مناسب‌اند تا ابزارهایی که پشت سیستم‌عامل‌ها، بازی‌ها، بانک‌ها، هوش مصنوعی و سخت‌افزار قرار دارند.
+      هدف این است که بفهمیم هر زبان کجا به کار می‌آید و چه زمانی انتخاب خوبی است.
+    </p>
+    <div class="hero-meta">
+      <span class="pill">۵۲ زبان و فناوری</span>
+      <span class="pill">مناسب برای مرور و انتخاب مسیر</span>
+      <span class="pill">فارسی · RTL</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><strong>۵۲</strong><span>زبان و فناوری بررسی‌شده</span></div>
+      <div class="stat"><strong>۱۰+</strong><span>حوزه کاربردی</span></div>
+      <div class="stat"><strong>۰۱</strong><span>هدف اصلی: انتخاب آگاهانه</span></div>
+    </div>
+  </section>
+
+  <div class="section-head">
+    <div>
+      <h2>کتابخانه زبان‌ها</h2>
+      <p>جست‌وجو کن یا بر اساس حوزه فیلتر کن</p>
+    </div>
+    <p id="count">۵۲ مورد</p>
+  </div>
+
+  <div class="toolbar">
+    <div class="search">
+      <input id="search" type="search" placeholder="مثلاً Python، هوش مصنوعی، بازی‌سازی..." aria-label="جست‌وجوی زبان‌ها">
+    </div>
+    <div class="filters" id="filters">
+      <button class="filter active" data-filter="all">همه</button>
+      <button class="filter" data-filter="web">وب</button>
+      <button class="filter" data-filter="ai">هوش مصنوعی و داده</button>
+      <button class="filter" data-filter="mobile">موبایل</button>
+      <button class="filter" data-filter="game">بازی‌سازی</button>
+      <button class="filter" data-filter="system">سیستم و سخت‌افزار</button>
+      <button class="filter" data-filter="enterprise">سازمانی و پایگاه داده</button>
+      <button class="filter" data-filter="education">آموزشی و پژوهشی</button>
+    </div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty">چیزی پیدا نشد. عبارت دیگری امتحان کن.</div>
+
+  <section class="callout">
+    <h2>یک نکته قبل از انتخاب زبان</h2>
+    <p>
+      زبان برنامه‌نویسی به‌تنهایی مسیر شغلی نیست.
+      برای ساخت محصول واقعی باید ابزارهای همان حوزه، مفاهیم پایه، کار با کتابخانه‌ها، تست، دیباگ و طراحی نرم‌افزار را هم یاد بگیری.
+      بهتر است یک زبان را با چند پروژه واقعی عمیق یاد بگیری، نه اینکه چندین زبان را فقط در حد دستورهای اولیه بشناسی.
+    </p>
+  </section>
+
+  <div class="section-head">
+    <div>
+      <h2>از کجا شروع کنم؟</h2>
+      <p>یک مسیر پیشنهادی بر اساس علاقه‌ات</p>
+    </div>
+  </div>
+
+  <div class="path-grid">
+    <div class="path">
+      <strong>🤖 هوش مصنوعی و داده</strong>
+      <p>Python ← مبانی آمار ← NumPy و Pandas ← یادگیری ماشین ← PyTorch</p>
+    </div>
+    <div class="path">
+      <strong>🌐 توسعه وب</strong>
+      <p>HTML و CSS ← JavaScript ← TypeScript ← React یا Next.js ← بک‌اند و SQL</p>
+    </div>
+    <div class="path">
+      <strong>📱 اپلیکیشن موبایل</strong>
+      <p>Android: Kotlin · iOS: Swift · چندسکویی: Dart و Flutter</p>
+    </div>
+    <div class="path">
+      <strong>🎮 بازی‌سازی</strong>
+      <p>Unity: C# · Unreal Engine: C++ · Godot: GDScript</p>
+    </div>
+    <div class="path">
+      <strong>⚙️ سیستم و سخت‌افزار</strong>
+      <p>C ← مبانی سیستم ← C++ یا Rust ← در صورت نیاز Assembly</p>
+    </div>
+    <div class="path">
+      <strong>📊 تحلیل داده</strong>
+      <p>Python و SQL؛ برای آمار تخصصی و پژوهش، R هم گزینه مهمی است.</p>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner" style="margin-bottom:18px;">
+      <span>© ۱۴۰۵ / ۲۰۲۶ · سینا شجاعیان (3INA3)</span>
+      <span style="direction:ltr;"><a href="https://github.com/3INA3" style="color:var(--mint);">github.com/3INA3</a></span>
+    </div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.8;max-width:900px;">
+      <p style="margin:0 0 8px;">تمام حقوق این راهنما برای <b>Sina Shojaeian (3INA3)</b> محفوظ است.</p>
+      <p style="margin:0 0 8px;">دانلود، استفاده، کپی، بازنشر، ویرایش و توزیع <b>فقط</b> از طریق ریپازیتوری رسمی گیت‌هاب مجاز است:
+        <a href="https://github.com/3INA3" style="color:var(--lime);">github.com/3INA3</a></p>
+      <p style="margin:0 0 8px;">هرگونه استفاده غیرمجاز، تغییر محتوا یا توزیع خارج از منبع رسمی پیگرد قانونی دارد.</p>
+      <p style="margin:0 0 10px;direction:ltr;text-align:left;"><b>This material is proprietary. Unauthorized modification, redistribution or commercial use is strictly prohibited.</b></p>
+      <p style="margin:0 0 6px;direction:ltr;text-align:left;">Official source only · © 2026 Sina Shojaeian (3INA3) · All Rights Reserved</p>
+      <p style="margin:12px 0 4px;color:var(--lime);font-weight:700;">DIGITAL DOCUMENT ID</p>
+      <p style="margin:0;direction:ltr;text-align:left;font-family:'Fira Code',monospace;font-size:12px;">3INA3-LANGS-20261113-999D84A2</p>
+      <p style="margin:4px 0 0;direction:ltr;text-align:left;font-size:11px;">Issued: 2026-11-13 · Owner: Sina Shojaeian (3INA3) · Official source: github.com/3INA3</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const languages = [
+  ["Python","🐍","پایتون","برای شروع برنامه‌نویسی انتخاب محبوبی است؛ خوانایی خوبی دارد و در پروژه‌های داده و هوش مصنوعی بسیار پرکاربرد است.","ai,web,education","هوش مصنوعی","تحلیل داده","اتوماسیون","بک‌اند","کتابخانه‌هایی مثل PyTorch، NumPy و Pandas بخش بزرگی از اکوسیستم علمی پایتون را ساخته‌اند.","name = 'Ali'\\nprint('Hello', name)"],
+  ["JavaScript","🟨","جاوااسکریپت","زبان اصلی تعامل در مرورگر است و با Node.js می‌تواند در سمت سرور هم اجرا شود.","web,game","فرانت‌اند وب","بک‌اند","اپلیکیشن","بازی‌های مرورگری","با وجود شباهت اسمی، Java و JavaScript دو زبان متفاوت‌اند.","function greet() {\\n  console.log('Hello!');\\n}"],
+  ["TypeScript","🔷","تایپ‌اسکریپت","جاوااسکریپت را با سیستم نوع‌دهی ایستا گسترش می‌دهد و در پروژه‌های بزرگ، خطاهای زیادی را زودتر آشکار می‌کند.","web,enterprise","وب‌اپلیکیشن","React","Node.js","پروژه‌های بزرگ","کد TypeScript معمولاً به JavaScript تبدیل می‌شود تا در محیط‌های رایج اجرا شود.","let age: number = 20;"],
+  ["Java","☕","جاوا","زبانی باسابقه و قابل‌حمل که در سامانه‌های سازمانی، سرویس‌های بزرگ و بخش‌هایی از اکوسیستم اندروید حضور پررنگی دارد.","web,mobile,enterprise","سامانه‌های بانکی","بک‌اند","Android","نرم‌افزار سازمانی","ماشین مجازی Java اجرای برنامه را روی سیستم‌عامل‌های مختلف ممکن می‌کند.","class Main {\\n  public static void main(String[] args) {\\n    System.out.println('Hello');\\n  }\\n}"],
+  ["Rust","🦀","راست","برای نرم‌افزارهای سریع و سطح پایین طراحی شده و با مدل مالکیت حافظه، بسیاری از خطاهای حافظه را هنگام کامپایل کنترل می‌کند.","system,web","ابزارهای سیستمی","زیرساخت","امنیت","WebAssembly","Rust بدون نیاز به جمع‌آوری زباله روی ایمنی حافظه تمرکز می‌کند.","fn main() {\\n    let value = 10;\\n    println!(\"{}\", value);\\n}"],
+  ["C","🔵","سی","یکی از پایه‌های برنامه‌نویسی سیستمی است؛ کنترل نزدیک‌تری روی حافظه و منابع سخت‌افزاری می‌دهد.","system,education","سیستم‌عامل","میکروکنترلر","درایور","Embedded","بخش‌هایی از سیستم‌عامل‌ها و ابزارهای پایه با C نوشته شده‌اند.","#include <stdio.h>\\nint main(void) {\\n  printf(\"Hello\\\\n\");\\n  return 0;\\n}"],
+  ["C++","⚡","سی‌پلاس‌پلاس","برای برنامه‌هایی که سرعت و کنترل منابع اهمیت زیادی دارد استفاده می‌شود؛ از بازی‌سازی تا شبیه‌سازی و نرم‌افزارهای سنگین.","system,game","موتور بازی","شبیه‌سازی","رباتیک","نرم‌افزار سریع","Unreal Engine از نمونه‌های شناخته‌شده فناوری‌هایی است که به C++ تکیه دارند.","#include <iostream>\\nint main() {\\n  std::cout << \"Hello\";\\n}"],
+  ["C#","🟣","سی‌شارپ","زبان چندمنظوره اکوسیستم .NET است؛ هم برای بک‌اند و برنامه‌های سازمانی و هم برای بازی‌سازی با Unity استفاده می‌شود.","web,game,enterprise","Unity","بک‌اند","برنامه دسکتاپ","سرویس ابری","C# محدود به ویندوز نیست و با .NET روی سیستم‌عامل‌های مختلف قابل استفاده است.","Console.WriteLine(\"Hello World\");"],
+  ["Go","🟦","گو","زبانی ساده و کامپایل‌شونده که برای سرویس‌های شبکه‌ای، ابزارهای زیرساخت و برنامه‌های همزمان محبوب شده است.","web,system","بک‌اند","Cloud","DevOps","ابزارهای شبکه","Goroutineها راهی سبک برای اجرای همزمان وظایف فراهم می‌کنند.","package main\\nimport \"fmt\"\\nfunc main() { fmt.Println(\"Hello\") }"],
+  ["Kotlin","🟠","کاتلین","زبانی مدرن که در توسعه Android جایگاه مهمی دارد و در بک‌اند و پروژه‌های چندسکویی هم استفاده می‌شود.","mobile,web","Android","بک‌اند","چندسکویی","سازمانی","با Java سازگاری خوبی دارد و می‌تواند از کتابخانه‌های JVM استفاده کند.","fun main() {\\n  println(\"Hello World\")\\n}"],
+  ["Swift","🍎","سوئیفت","زبان مدرن اپل برای ساخت برنامه‌های iOS، macOS، watchOS و دیگر محصولات این اکوسیستم است.","mobile","iPhone و iPad","macOS","Apple Watch","اپلیکیشن بومی","Swift برای ایمنی و کارایی طراحی شده و انتخاب اصلی بسیاری از پروژه‌های جدید اپل است.","let name = \"Ali\"\\nprint(\"Hello \\\\(name)\")"],
+  ["Dart","🎯","دارت","بیشتر به خاطر Flutter شناخته می‌شود؛ با آن می‌توان از یک کدبیس برای ساخت رابط کاربری چند پلتفرمی استفاده کرد.","mobile,web","Flutter","Android و iOS","وب","دسکتاپ","برای توسعه اپلیکیشن با Flutter باید با زبان Dart هم آشنا شوی.","void main() {\\n  print('Hello World');\\n}"],
+  ["Ruby","💎","روبی","زبانی خوش‌خوان با تمرکز بر سادگی و بهره‌وری برنامه‌نویس؛ فریم‌ورک Ruby on Rails آن در توسعه وب معروف است.","web","وب‌اپلیکیشن","Backend","نمونه‌سازی سریع","اتوماسیون","جامعه Ruby روی خوانایی و تجربه خوشایند توسعه‌دهنده تأکید زیادی دارد.","name = 'Ali'\\nputs \"Hello #{name}\""],
+  ["PHP","🐘","پی‌اچ‌پی","زبانی سمت سرور که بخش بزرگی از وب و سیستم‌های مدیریت محتوا، از جمله WordPress، با آن کار می‌کنند.","web","WordPress","فروشگاه اینترنتی","بک‌اند","CMS","قدیمی بودن PHP به معنی منسوخ شدن آن نیست؛ هنوز در پروژه‌های فراوانی استفاده می‌شود.","<?php\\n$name = 'Ali';\\necho \"Hello $name\";\\n?>"],
+  ["R","📊","آر","برای آمار، تحلیل داده و مصورسازی علمی ساخته شده و در پژوهش و دانشگاه کاربرد زیادی دارد.","ai,education","آمار","تحلیل داده","پژوهش","نمودار","بسته‌های تخصصی R آن را برای تحلیل‌های آماری پیشرفته قدرتمند کرده‌اند.","x <- c(10, 20, 30)\\nmean(x)"],
+  ["Julia","🧮","جولیا","برای محاسبات علمی و عددی طراحی شده و می‌کوشد سادگی زبان‌های سطح بالا را با کارایی خوب ترکیب کند.","ai,education","محاسبات عددی","شبیه‌سازی","علم داده","پژوهش","در حوزه‌هایی مثل مدل‌سازی علمی و محاسبات سنگین مورد توجه است.","x = [1, 2, 3, 4]\\nsum(x)"],
+  ["MATLAB","📐","متلب","محیط و زبان تخصصی محاسبات مهندسی، تحلیل سیگنال، کنترل و شبیه‌سازی است.","ai,education","مهندسی برق","کنترل","پردازش سیگنال","شبیه‌سازی","در دانشگاه‌ها و صنایع مهندسی، ابزارهای آماده MATLAB کاربرد زیادی دارند.","x = [1 2 3 4];\\nmean(x)"],
+  ["SQL","🗃️","اس‌کیوال","زبان پرس‌وجو و مدیریت داده در پایگاه‌های داده رابطه‌ای است؛ برای تقریباً هر توسعه‌دهنده بک‌اند دانستنش مفید است.","web,enterprise","پایگاه داده","گزارش‌گیری","تحلیل داده","بک‌اند","SQL یک زبان تخصصی برای کار با داده است، نه زبان عمومی برای ساخت همه نوع برنامه.","SELECT name FROM users WHERE age > 18;"],
+  ["PL/SQL","🏦","پی‌ال/اس‌کیوال","افزونه رویه‌ای Oracle برای نوشتن منطق، رویه‌ها و توابعی است که در پایگاه داده اجرا می‌شوند.","enterprise","Oracle Database","بانکداری","سامانه سازمانی","پردازش داده","در سازمان‌هایی که Oracle استفاده می‌کنند، PL/SQL می‌تواند بخش مهمی از منطق سامانه باشد.","BEGIN\\n  DBMS_OUTPUT.PUT_LINE('Hello');\\nEND;"],
+  ["T-SQL","🗄️","تی‌اس‌کیوال","نسخه توسعه‌یافته SQL در Microsoft SQL Server است و قابلیت‌هایی برای منطق و مدیریت داده اضافه می‌کند.","enterprise","SQL Server","گزارش‌گیری","سامانه سازمانی","مدیریت داده","T-SQL را معمولاً در کنار Microsoft SQL Server یاد می‌گیرند.","SELECT name FROM users WHERE age > 18;"],
+  ["Lisp","🧠","لیسپ","از زبان‌های اثرگذار قدیمی است که ایده‌های مهمی در برنامه‌نویسی نمادین و پردازش ساختارهای داده معرفی کرد.","ai,education","هوش مصنوعی پژوهشی","زبان‌شناسی","آموزش","طراحی زبان","ساختار پرانتزی Lisp در ابتدا عجیب به نظر می‌رسد، اما کد و داده در آن ارتباط نزدیکی دارند.","(+ 2 3)"],
+  ["Haskell","🧠","هسکل","زبان تابعی با سیستم نوع‌دهی قوی است که برای یادگیری مفاهیم عمیق برنامه‌نویسی و برخی سامانه‌های تخصصی مفید است.","education","برنامه‌نویسی تابعی","پژوهش","آموزش دانشگاهی","سیستم‌های تخصصی","Haskell برنامه‌نویس را به نوشتن توابع خالص و مدیریت دقیق اثرات جانبی تشویق می‌کند.","square x = x * x"],
+  ["Prolog","🔍","پرولوگ","به جای نوشتن مراحل اجرای برنامه، واقعیت‌ها و قوانین را تعریف می‌کنی و از موتور استنتاج سؤال می‌پرسی.","ai,education","سیستم خبره","منطق","پژوهش هوش مصنوعی","پردازش زبان","Prolog نمونه‌ای شناخته‌شده از برنامه‌نویسی منطقی است.","parent(ali, sara).\\nparent(sara, john).\\nparent(ali, X)."],
+  ["Lua","🌙","لوآ","زبانی سبک و قابل‌تزریق است که اغلب برای اسکریپت‌نویسی در بازی‌ها و نرم‌افزارهای دیگر به کار می‌رود.","game,system","بازی‌سازی","اسکریپت","افزونه","Embedded","Lua به دلیل اندازه کوچک و سادگی، برای اضافه کردن قابلیت اسکریپت به برنامه‌ها مناسب است.","print('Hello World')"],
+  ["GDScript","🎮","جی‌دی‌اسکریپت","زبان اسکریپت‌نویسی موتور Godot است و برای منطق بازی، کنترل شخصیت و تعاملات صحنه استفاده می‌شود.","game","Godot","بازی دوبعدی","بازی سه‌بعدی","نمونه‌سازی","از نظر ظاهر به Python شباهت دارد و برای گردش‌کار Godot طراحی شده است.","extends Node\\nfunc _ready():\\n    print('Hello!')"],
+  ["Solidity","⛓️","سالیدیتی","برای نوشتن قرارداد هوشمند روی Ethereum و شبکه‌های سازگار استفاده می‌شود.","system,web","قرارداد هوشمند","Web3","بلاک‌چین","برنامه غیرمتمرکز","اشتباه امنیتی در قرارداد هوشمند می‌تواند دارایی واقعی را در معرض خطر قرار دهد؛ تست و ممیزی حیاتی است.","contract Hello {\\n  string public message = \"Hello\";\\n}"],
+  ["Assembly","🧩","اسمبلی","نمایی متنی و نزدیک به دستورهای پردازنده است؛ برای فهم معماری کامپیوتر و کارهای بسیار سطح پایین کاربرد دارد.","system,education","Reverse Engineering","Bootloader","Embedded","تحلیل پردازنده","Assembly به معماری پردازنده وابسته است؛ اسمبلی x86 با ARM یکسان نیست.","MOV AX, 5\\nADD AX, 3"],
+  ["Scala","🔵","اسکالا","زبان چندسبکی روی JVM که قابلیت‌های شی‌گرا و تابعی را ترکیب می‌کند و در بعضی سامانه‌های داده بزرگ استفاده می‌شود.","web,enterprise,ai","Big Data","Apache Spark","سیستم توزیع‌شده","بک‌اند","Scala می‌تواند از اکوسیستم کتابخانه‌های Java استفاده کند.","val numbers = List(1, 2, 3)\\nprintln(numbers.sum)"],
+  ["Clojure","🟣","کلوجر","زبان تابعی از خانواده Lisp است که روی JVM اجرا می‌شود و برای پردازش داده و سرویس‌های سمت سرور هم به کار می‌رود.","web,education","Functional Programming","JVM","بک‌اند","پردازش داده","Clojure داده‌های immutable را جدی می‌گیرد و این ویژگی در برنامه‌های همزمان مفید است.","(+ 2 3)"],
+  ["Elixir","🔥","الیکسیر","برای ساخت سامانه‌های همزمان و توزیع‌شده طراحی شده و روی ماشین مجازی Erlang اجرا می‌شود.","web,enterprise","سیستم Real-time","چت","سرویس‌های پرترافیک","پردازش همزمان","فریم‌ورک Phoenix در ساخت برنامه‌های وب و ارتباطات زنده با Elixir شناخته‌شده است.","IO.puts(\"Hello World\")"],
+  ["Erlang","🐦","ارلنگ","برای سیستم‌های توزیع‌شده و بسیار در دسترس ساخته شده؛ ریشه تاریخی مهمی در مخابرات دارد.","enterprise,system","مخابرات","سیستم توزیع‌شده","Real-time","زیرساخت","مدل تحمل خطای Erlang کمک می‌کند بخش‌های خراب‌شده بدون توقف کل سیستم مدیریت شوند.","io:format(\"Hello World~n\")."],
+  ["F#","🔷","اف‌شارپ","زبان تابعی اکوسیستم .NET است و در تحلیل داده، محاسبات و سامانه‌های مبتنی بر .NET کاربرد دارد.","enterprise,education","Functional Programming","تحلیل داده","محاسبات","ابزارهای .NET","F# می‌تواند در کنار زبان‌هایی مثل C# در یک پروژه .NET استفاده شود.","let square x = x * x"],
+  ["OCaml","🐫","اوکمل","زبان تابعی با سیستم نوع‌دهی قوی که در پژوهش، ابزارهای توسعه و پروژه‌های تخصصی استفاده می‌شود.","education,system","کامپایلر","پژوهش","ابزار توسعه","آموزش","OCaml در ساخت ابزارهای تحلیل کد و کامپایلرها هم سابقه قابل توجهی دارد.","let square x = x * x"],
+  ["Zig","⚡","زیگ","زبان نسبتاً جدیدی برای برنامه‌نویسی سیستمی است که کنترل منابع و سادگی ابزارسازی را هدف می‌گیرد.","system","ابزار سیستمی","برنامه سریع","Embedded","جایگزین‌های C","Zig هنوز به اندازه C و C++ فراگیر نیست، اما در جامعه سیستم‌نویسی مورد توجه است.","const std = @import(\"std\");\\npub fn main() void {}"],
+  ["Nim","🐍","نیم","زبانی کامپایل‌شونده با سینتکس خوانا که برای تولید برنامه‌های سریع و ابزارهای کوچک استفاده می‌شود.","system","ابزار CLI","برنامه سریع","سیستم","اتوماسیون","Nim تلاش می‌کند خوانایی بالا را با خروجی کامپایل‌شده ترکیب کند.","echo \"Hello World\""],
+  ["Crystal","💎","کریستال","از نظر ظاهر به Ruby نزدیک است، اما به کد native کامپایل می‌شود و کارایی را هم هدف می‌گیرد.","web,system","بک‌اند","ابزار CLI","برنامه سریع","اسکریپت","شباهت ظاهری به Ruby به معنی سازگاری کامل با اکوسیستم Ruby نیست.","puts \"Hello World\""],
+  ["D","🔷","دی","زبان سیستمی کامپایل‌شونده‌ای است که امکانات مدرن را با کنترل سطح پایین ترکیب می‌کند.","system","برنامه سریع","ابزار سیستمی","پردازش","نرم‌افزار native","D می‌خواهد بخشی از قدرت C++ را با تجربه توسعه ساده‌تری ارائه کند.","import std.stdio;\\nvoid main() { writeln(\"Hello\"); }"],
+  ["V","🟢","وی","زبانی نسبتاً جدید با تمرکز بر سادگی و سرعت کامپایل است؛ اکوسیستم آن هنوز در حال رشد است.","system,web","ابزار کوچک","برنامه native","بک‌اند","آزمایش و یادگیری","پیش از انتخاب V برای محصول بزرگ، بلوغ کتابخانه‌ها و ابزارهای موردنیازت را بررسی کن.","fn main() {\\n  println('Hello World')\\n}"],
+  ["Groovy","🟣","گرووی","زبانی پویا در اکوسیستم JVM که در اسکریپت‌نویسی، اتوماسیون و بعضی ابزارهای ساخت پروژه استفاده می‌شود.","enterprise","Gradle","اتوماسیون","تست","JVM","Groovy در فایل‌های build و اسکریپت‌های ابزارهای Java دیده می‌شود.","println 'Hello World'"],
+  ["Objective-C","🍎","آبجکتیو-سی","زبان قدیمی‌تر توسعه نرم‌افزار اپل است و هنوز در بعضی پروژه‌های قدیمی macOS و iOS وجود دارد.","mobile","پروژه‌های قدیمی iOS","macOS","نگهداری نرم‌افزار","کتابخانه‌های اپل","برای پروژه‌های جدید اپل معمولاً Swift انتخاب مدرن‌تری است، اما شناخت Objective-C در نگهداری کد قدیمی مفید است.","NSLog(@\"Hello World\");"],
+  ["Visual Basic","🪟","ویژوال بیسیک","خانواده‌ای از زبان‌ها و ابزارهای مایکروسافت که در نرم‌افزارهای تجاری و پروژه‌های قدیمی ویندوز دیده می‌شود.","enterprise","نرم‌افزار ویندوز","اتوماسیون اداری","نگهداری سیستم قدیمی","آموزش","در محیط .NET، نسخه Visual Basic .NET با زبان کلاسیک VB تفاوت‌هایی دارد.","Console.WriteLine(\"Hello World\")"],
+  ["Pascal","📚","پاسکال","زبانی ساخت‌یافته که سال‌ها برای آموزش اصول برنامه‌نویسی و طراحی نرم‌افزار استفاده می‌شد.","education","آموزش","مبانی برنامه‌نویسی","پروژه‌های قدیمی","الگوریتم","ساختار روشن Pascal برای آموزش مفاهیم پایه بسیار مناسب بود.","begin\\n  writeln('Hello World');\\nend."],
+  ["Delphi / Object Pascal","🟦","دلفی / آبجکت پاسکال","محیط و اکوسیستمی مبتنی بر Object Pascal برای ساخت برنامه‌های دسکتاپ و نرم‌افزارهای تجاری است.","enterprise","برنامه دسکتاپ","سیستم‌های سازمانی","پایگاه داده","نگهداری نرم‌افزار","بسیاری از برنامه‌های تجاری قدیمی هنوز با Delphi نگهداری می‌شوند.","begin\\n  Writeln('Hello World');\\nend."],
+  ["Ada","🛡️","آدا","برای سامانه‌هایی طراحی شده که اطمینان‌پذیری، ایمنی و قابلیت پیش‌بینی اهمیت زیادی دارد.","system,enterprise","هوافضا","حمل‌ونقل","Embedded","سامانه حساس","Ada در برخی حوزه‌های حساس صنعتی و دفاعی به دلیل تمرکز بر قابلیت اطمینان استفاده شده است.","with Ada.Text_IO;\\nprocedure Hello is\\nbegin\\n  Ada.Text_IO.Put_Line(\"Hello\");\\nend Hello;"],
+  ["Fortran","🚀","فورترن","از زبان‌های قدیمی محاسبات علمی است که به دلیل میراث نرم‌افزاری و کارایی، هنوز در برخی شبیه‌سازی‌ها استفاده می‌شود.","ai,education","محاسبات علمی","هواشناسی","شبیه‌سازی","مهندسی","Fortran از دهه ۱۹۵۰ وجود دارد و هنوز در کدهای علمی و عددی دیده می‌شود.","program hello\\n  print *, 'Hello World'\\nend program hello"],
+  ["COBOL","💼","کوبول","زبانی باسابقه در پردازش داده‌های تجاری که هنوز در برخی سامانه‌های بانکی و سازمانی قدیمی حضور دارد.","enterprise","بانکداری","پردازش مالی","سامانه‌های Legacy","سازمان‌های بزرگ","قدیمی بودن فناوری لزوماً به معنی کنار گذاشته شدن آن نیست؛ مهاجرت سامانه‌های حیاتی دشوار است.","DISPLAY 'HELLO WORLD'.\\nSTOP RUN."],
+  ["BASIC","🟡","بیسیک","با هدف ساده کردن یادگیری برنامه‌نویسی ساخته شد و در تاریخ رایانه‌های شخصی و آموزش نقش مهمی داشت.","education","آموزش مقدماتی","رایانه‌های قدیمی","برنامه‌های ساده","تاریخ کامپیوتر","نسخه‌ها و گویش‌های مختلفی از BASIC وجود دارند؛ همه آن‌ها یکسان نیستند.","PRINT \"HELLO WORLD\""],
+  ["Verilog","🔌","وریلاگ","زبان توصیف سخت‌افزار است؛ با آن رفتار مدارهای دیجیتال و اجزای تراشه را مدل می‌کنند.","system","FPGA","طراحی مدار","طراحی تراشه","پردازنده","Verilog برای توصیف سخت‌افزار است، نه نوشتن برنامه معمولی برای اجرای مستقیم روی سیستم‌عامل.","module and_gate(input a,b, output y);\\nassign y = a & b;\\nendmodule"],
+  ["VHDL","🔧","وی‌اچ‌دی‌ال","زبان توصیف سخت‌افزار دیگری برای طراحی و شبیه‌سازی مدارهای دیجیتال و پیاده‌سازی روی FPGA است.","system","FPGA","مدار دیجیتال","طراحی تراشه","مهندسی الکترونیک","VHDL و Verilog هر دو در طراحی سخت‌افزار استفاده می‌شوند، اما نحو و سبک آن‌ها متفاوت است.","entity gate is\\n  port(a,b: in bit; y: out bit);\\nend gate;"],
+  ["Scratch","🧩","اسکرچ","محیط برنامه‌نویسی بلوکی برای یادگیری منطق برنامه‌نویسی است؛ به جای تایپ کد، بلوک‌ها را کنار هم می‌چینی.","education,game","آموزش کودکان","بازی ساده","داستان تعاملی","منطق برنامه‌نویسی","هدف Scratch آموزش مفاهیم است، نه جایگزینی زبان‌های حرفه‌ای توسعه نرم‌افزار.","when green flag clicked\\nsay [Hello!] for (2) seconds"],
+  ["Logo","🐢","لوگو","زبان آموزشی شناخته‌شده با لاک‌پشت گرافیکی است که برای آموزش دستورها، هندسه و تفکر الگوریتمی استفاده می‌شد.","education","آموزش","هندسه","الگوریتم","کودکان","در نسخه‌های مشهور Logo می‌توان با حرکت لاک‌پشت روی صفحه شکل رسم کرد.","FORWARD 100\\nRIGHT 90"],
+  ["Racket","🟣","رکت","زبانی از خانواده Lisp که در آموزش علوم کامپیوتر و طراحی زبان‌های برنامه‌نویسی کاربرد دارد.","education","آموزش دانشگاهی","طراحی زبان","برنامه‌نویسی تابعی","پژوهش","Racket ابزارهایی برای ساخت زبان‌های دامنه‌خاص و آزمایش ایده‌های زبانی فراهم می‌کند.","(+ 2 3)"]
+];
+
+const categoryNames = {
+  web: "وب",
+  ai: "هوش مصنوعی و داده",
+  mobile: "موبایل",
+  game: "بازی‌سازی",
+  system: "سیستم و سخت‌افزار",
+  enterprise: "سازمانی و پایگاه داده",
+  education: "آموزشی و پژوهشی"
+};
+
+const grid = document.getElementById('grid');
+const search = document.getElementById('search');
+const count = document.getElementById('count');
+const empty = document.getElementById('empty');
+let active = 'all';
+
+const faNum = n => new Intl.NumberFormat('fa-IR').format(n);
+
+function render() {
+  const q = search.value.trim().toLowerCase();
+  const filtered = languages.filter(l => {
+    const cats = l[4].split(',').map(c => c.trim());
+    const hay = [l[0], l[2], l[3], l[5], l[6], l[7], l[8], l[9]].join(' ').toLowerCase();
+    const matchFilter = active === 'all' || cats.includes(active);
+    const matchSearch = !q || hay.includes(q);
+    return matchFilter && matchSearch;
+  });
+
+  grid.innerHTML = filtered.map((l, i) => `
+    <article class="card" style="animation-delay: ${Math.min(i * 0.04, 0.6)}s">
+      <div class="card-top">
+        <div class="lang-title">
+          <span class="emoji">${l[1]}</span>
+          <div>
+            <h3>${l[0]}</h3>
+            <small>${l[2]}</small>
+          </div>
+        </div>
+        <span class="tag">${categoryNames[l[4].split(',')[0].trim()] || 'عمومی'}</span>
+      </div>
+      <p class="desc">${l[3]}</p>
+      <div class="subhead">کجا به کار می‌آید؟</div>
+      <div class="uses">${l.slice(5, 9).map(x => `<span>${x}</span>`).join('')}</div>
+      <div class="note"><b>نکته:</b> ${l[9]}</div>
+      <div class="subhead">یک نمونه کد</div>
+      <pre><code>${l[10].replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>
+    </article>
+  `).join('');
+
+  count.textContent = `${faNum(filtered.length)} مورد`;
+  empty.style.display = filtered.length ? 'none' : 'block';
+}
+
+search.addEventListener('input', render);
+
+document.getElementById('filters').addEventListener('click', e => {
+  const b = e.target.closest('button[data-filter]');
+  if (!b) return;
+  active = b.dataset.filter;
+  document.querySelectorAll('.filter').forEach(x => x.classList.toggle('active', x === b));
+  render();
+});
+
+render();
+
+(function createLeaves() {
+  const container = document.getElementById('leaves');
+  const emojis = ['🍃', '🌿', '☘️', '🌱', '🍂'];
+  for (let i = 0; i < 14; i++) {
+    const leaf = document.createElement('div');
+    leaf.className = 'leaf';
+    leaf.textContent = emojis[i % emojis.length];
+    leaf.style.left = Math.random() * 100 + 'vw';
+    leaf.style.animationDuration = (12 + Math.random() * 18) + 's';
+    leaf.style.animationDelay = (Math.random() * 12) + 's';
+    leaf.style.fontSize = (14 + Math.random() * 16) + 'px';
+    container.appendChild(leaf);
+  }
+})();
+</script>
+</body>
+</html>
